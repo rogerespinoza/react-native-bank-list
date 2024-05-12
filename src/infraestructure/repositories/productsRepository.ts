@@ -6,34 +6,37 @@ export class ProductsRepository implements ProductsRepositoryModel {
   async getProducts() {
     try {
       const productsList = await dataApi.getProducts();
-      return adapterProductsApi(productsList);
+      return adapterProductsApi(productsList as dataApi.ProductApi[]);
     } catch (error) {
       console.log('|>>> error: ProductsRepository <<<|');
       throw error;
     }
   }
   // -------- CREATE PRODUCTS
-  async createProduct() {
+  async createProduct(_item: FinancialProduct) {
     try {
-      return adapterProductsApi([]);
+      const productApi = adapterProductApi(_item);
+      return await dataApi.createProduct(productApi);
     } catch (error) {
       console.log('|>>> error: ProductsRepository <<<|');
       throw error;
     }
   }
   // -------- UPDATE PRODUCTS
-  async updateProduct() {
+  async updateProduct(_item: FinancialProduct) {
     try {
-      return adapterProductsApi([]);
+      const productApi = adapterProductApi(_item);
+      return await dataApi.updateProduct(productApi);
     } catch (error) {
       console.log('|>>> error: ProductsRepository <<<|');
       throw error;
     }
   }
   // -------- DELETE PRODUCTS
-  async deleteProduct() {
+  async deleteProduct(_item: FinancialProduct) {
     try {
-      return adapterProductsApi([]);
+      const productApi = adapterProductApi(_item);
+      return await dataApi.deleteProduct(productApi);
     } catch (error) {
       console.log('|>>> error: ProductsRepository <<<|');
       throw error;
@@ -42,6 +45,14 @@ export class ProductsRepository implements ProductsRepositoryModel {
 }
 
 // -------- ADAPTERS
+const adapterProductApi = (product: FinancialProduct): dataApi.ProductApi => {
+  return {
+    ...product,
+    date_release: product.date_release.toISOString().substring(0, 10),
+    date_revision: product.date_revision.toISOString().substring(0, 10),
+  };
+};
+
 const adapterProductsApi = (
   productApiList: dataApi.ProductApi[],
 ): FinancialProduct[] => {
@@ -55,7 +66,7 @@ const adapterProductsApi = (
 // -------- REPOSITORY MODEL
 interface ProductsRepositoryModel {
   getProducts: () => Promise<FinancialProduct[]>;
-  updateProduct: () => Promise<FinancialProduct[]>;
-  createProduct: () => Promise<FinancialProduct[]>;
-  deleteProduct: () => Promise<FinancialProduct[]>;
+  updateProduct: (_item: FinancialProduct) => Promise<any>;
+  createProduct: (_item: FinancialProduct) => Promise<any>;
+  deleteProduct: (_item: FinancialProduct) => Promise<any>;
 }

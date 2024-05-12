@@ -13,10 +13,16 @@ export const client = async <T>({
   const response = await fetch(url, {
     method,
     headers: {
-      'Content-type': 'application/json',
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       authorId: `${ID_AUTHOUR}`,
     },
     body: method === 'GET' ? undefined : JSON.stringify(body),
   });
-  return (await response.json()) as T;
+
+  if (method === 'GET') {
+    return (await response.json()) as T;
+  }
+
+  return await response.text();
 };

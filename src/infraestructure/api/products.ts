@@ -8,9 +8,19 @@ export const getProducts = async () => {
   return await client<ProductApi[]>({ url, method: 'GET', body: {} });
 };
 
-export const createProduct = async () => {
+export const createProduct = async (_item: ProductApi) => {
   const url = API_BASE + '/bp/products';
-  return await client<string>({ url, method: 'GET', body: {} });
+  return await client<string>({ url, method: 'POST', body: _item });
+};
+
+export const updateProduct = async (_item: ProductApi) => {
+  const url = API_BASE + '/bp/products';
+  return await client<string>({ url, method: 'PUT', body: _item });
+};
+
+export const deleteProduct = async (_item: ProductApi) => {
+  const url = API_BASE + '/bp/products?' + `id=${_item.id}`;
+  return await client<string>({ url, method: 'DELETE' });
 };
 
 export interface ProductApi {
@@ -18,6 +28,6 @@ export interface ProductApi {
   name: string;
   description: string;
   logo: string;
-  date_release: Date;
-  date_revision: Date;
+  date_release: string;
+  date_revision: string;
 }

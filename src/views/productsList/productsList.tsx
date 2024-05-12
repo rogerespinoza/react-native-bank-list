@@ -1,32 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, View } from 'react-native';
 
 import { FinancialProduct } from '../../domain';
 import { DataHandler } from '../../infraestructure';
 import Spacer from '../../components/spacer';
-import { ItemProduct } from './components';
 import { styles } from './styles';
 import { homeRoutes } from '../../navigation/routes';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ListItem } from '../../components';
+import { useProducts } from '../../contexts';
 
 export function ProductListScreen({
   navigation,
 }: {
   navigation: StackNavigationProp<any, any>;
 }) {
-  const [products, setProducts] = useState<FinancialProduct[]>([]);
-  const fetchProducts = async () => {
-    try {
-      const productsData = await DataHandler.fetchProducts();
-      setProducts(productsData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const { products } = useProductList();
 
   const onNavigateToDetail = (product: FinancialProduct) => {
     navigation.navigate(homeRoutes.productDetail, { product });
@@ -38,7 +27,7 @@ export function ProductListScreen({
       <FlatList
         data={products}
         renderItem={({ item, index }) => (
-          <ItemProduct
+          <ListItem
             key={item.id}
             onPress={() => onNavigateToDetail(item)}
             product={item}
@@ -50,4 +39,25 @@ export function ProductListScreen({
       />
     </View>
   );
+}
+
+export function useProductList() {
+  const { products, addProducts } = useProducts();
+  const fetchProducts = async () => {
+    try {
+      const productsData = await DataHandler.fetchProducts();
+      addProducts(productsData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {
+    products,
+  };
 }

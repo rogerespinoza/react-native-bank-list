@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors } from '../common';
 
 export function Button({
   onPress,
@@ -15,14 +16,12 @@ export function Button({
   );
 }
 
-const BUTTON_COLOR = '#E8ECF4';
-
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   buttonContainer: {
     height: 50,
     borderRadius: 3,
-    borderColor: BUTTON_COLOR,
-    backgroundColor: BUTTON_COLOR,
+    borderColor: colors.blue1,
+    backgroundColor: colors.blue1,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
