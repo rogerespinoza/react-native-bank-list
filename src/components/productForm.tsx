@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { FinancialProduct } from '../domain';
 import { FormItem } from '../components';
+import { productEmpy } from '../common';
 
 export const ProductForm = ({
   product,
@@ -77,12 +78,3 @@ export function useProductForm({
     cleanForm,
   };
 }
-
-const productEmpy: FinancialProduct = {
-  id: '',
-  name: '',
-  description: '',
-  logo: '',
-  date_release: new Date(),
-  date_revision: new Date(),
-};

@@ -1,6 +1,7 @@
 import { FinancialProduct } from '../../domain';
 import { DataHandler } from '../../infraestructure';
 import { useProducts } from '../../contexts';
+import { productEmpy } from '../../common';
 
 export function useProductDetail({ product }: { product: FinancialProduct }) {
   const { addProducts } = useProducts();
@@ -19,12 +20,3 @@ export function useProductDetail({ product }: { product: FinancialProduct }) {
     getProducts,
   };
 }
-
-const productEmpy: FinancialProduct = {
-  id: '',
-  name: '',
-  description: '',
-  logo: '',
-  date_release: new Date(),
-  date_revision: new Date(),
-};
