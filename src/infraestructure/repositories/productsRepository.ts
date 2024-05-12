@@ -1,13 +1,39 @@
 import { FinancialProduct } from '../../domain';
+import { dataApi } from '../api';
 
 export class ProductsRepository implements ProductsRepositoryModel {
-  private fetchProducts(): FinancialProduct[] {
-    return finantialProductsList;
-  }
-
+  // -------- GET PRODUCTS
   async getProducts() {
     try {
-      return await this.fetchProducts();
+      const productsList = await dataApi.getProducts();
+      return adapterProductsApi(productsList);
+    } catch (error) {
+      console.log('|>>> error: ProductsRepository <<<|');
+      throw error;
+    }
+  }
+  // -------- CREATE PRODUCTS
+  async createProduct() {
+    try {
+      return adapterProductsApi([]);
+    } catch (error) {
+      console.log('|>>> error: ProductsRepository <<<|');
+      throw error;
+    }
+  }
+  // -------- UPDATE PRODUCTS
+  async updateProduct() {
+    try {
+      return adapterProductsApi([]);
+    } catch (error) {
+      console.log('|>>> error: ProductsRepository <<<|');
+      throw error;
+    }
+  }
+  // -------- DELETE PRODUCTS
+  async deleteProduct() {
+    try {
+      return adapterProductsApi([]);
     } catch (error) {
       console.log('|>>> error: ProductsRepository <<<|');
       throw error;
@@ -15,33 +41,21 @@ export class ProductsRepository implements ProductsRepositoryModel {
   }
 }
 
+// -------- ADAPTERS
+const adapterProductsApi = (
+  productApiList: dataApi.ProductApi[],
+): FinancialProduct[] => {
+  return productApiList.map(item => ({
+    ...item,
+    date_release: new Date(item.date_release),
+    date_revision: new Date(item.date_revision),
+  }));
+};
+
+// -------- REPOSITORY MODEL
 interface ProductsRepositoryModel {
   getProducts: () => Promise<FinancialProduct[]>;
+  updateProduct: () => Promise<FinancialProduct[]>;
+  createProduct: () => Promise<FinancialProduct[]>;
+  deleteProduct: () => Promise<FinancialProduct[]>;
 }
-
-const finantialProductsList: FinancialProduct[] = [
-  {
-    id: 'trj-crd-1',
-    name: 'Tarjetas de Credito',
-    description: 'Tarjeta de consumo bajo la modalidad de credito',
-    logo: 'https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg',
-    date_release: new Date('2023-02-01700:00:00.000+00:00'),
-    date_revision: new Date('2023-02-01700:00:00.000+00:00'),
-  },
-  {
-    id: 'trj-crd-2',
-    name: 'Tarjetas de Credito',
-    description: 'Tarjeta de consumo bajo la modalidad de credito',
-    logo: 'https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg',
-    date_release: new Date('2023-02-01700:00:00.000+00:00'),
-    date_revision: new Date('2023-02-01700:00:00.000+00:00'),
-  },
-  {
-    id: 'trj-crd-3',
-    name: 'Tarjetas de Credito',
-    description: 'Tarjeta de consumo bajo la modalidad de credito',
-    logo: 'https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg',
-    date_release: new Date('2023-02-01700:00:00.000+00:00'),
-    date_revision: new Date('2023-02-01700:00:00.000+00:00'),
-  },
-];

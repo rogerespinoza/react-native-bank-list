@@ -1,1 +1,1 @@
-export * from './repositories';
+export { DataHandler } from './repositories';
