@@ -46,7 +46,11 @@ export function EditProductScreen({
         <Spacer size={20} />
         <Text>Editar Registro</Text>
         <Spacer size={20} />
-        <ProductForm product={product} onChange={setProduct} />
+        <ProductForm
+          product={product}
+          onChange={setProduct}
+          typeForm="update"
+        />
         <Spacer size={10} />
         <Button label="Guardar" onPress={onUpdateProduct} />
         <Spacer size={10} />

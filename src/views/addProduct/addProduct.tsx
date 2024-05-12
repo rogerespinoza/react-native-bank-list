@@ -46,7 +46,11 @@ export function AddProductScreen({
         <Spacer size={20} />
         <Text>Formulario de Registro</Text>
         <Spacer size={20} />
-        <ProductForm product={product} onChange={setProduct} />
+        <ProductForm
+          product={product}
+          onChange={setProduct}
+          typeForm="create"
+        />
         <Spacer size={10} />
         <Button label="Enviar" onPress={onCreateProduct} />
         <Spacer size={10} />

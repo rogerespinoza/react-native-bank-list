@@ -8,12 +8,14 @@ export const FormItem = ({
   errorText = '',
   value = '',
   onChangeText,
+  disable = false,
 }: {
   label: string;
   hasError?: boolean;
+  disable?: boolean;
   errorText?: string;
   value: string;
-  onChangeText: (value: string) => void;
+  onChangeText?: (value: string) => void;
 }) => {
   return (
     <>
@@ -21,7 +23,8 @@ export const FormItem = ({
       <TextInput
         style={[styles.container, hasError && styles.containerError]}
         value={value}
-        onChangeText={newText => onChangeText(newText)}
+        editable={!disable}
+        onChangeText={newText => onChangeText?.(newText)}
       />
       {hasError && <Text style={styles.errorText}>{errorText}</Text>}
       <Spacer size={10} />

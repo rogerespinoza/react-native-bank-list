@@ -7,12 +7,16 @@ export const colors = {
   gray1: '#E0E5F0',
 };
 
+// ------- Time
+export const TIMESTAMP_ONE_YEAR = 31536000000;
+
 // ------ Product
+const currentDate = new Date();
 export const productEmpy: FinancialProduct = {
   id: '',
   name: '',
   description: '',
   logo: '',
-  date_release: new Date(),
-  date_revision: new Date(),
+  date_release: currentDate,
+  date_revision: new Date(currentDate.getTime() + TIMESTAMP_ONE_YEAR),
 };
