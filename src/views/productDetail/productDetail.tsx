@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { FinancialProduct } from '../../domain';
-import Spacer from '../../components/spacer';
 import { styles } from './styles';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Button } from '../../components';
-import { homeRoutes } from '../../navigation/routes';
+import { Button, Spacer } from '../../components';
+import { homeRoutes } from '../../navigation';
+import { useProductDetail } from './useProductDetail';
 
 export function ProductDetailScreen({
   navigation,
@@ -17,12 +17,28 @@ export function ProductDetailScreen({
 }) {
   const product: FinancialProduct = route.params?.product || {};
 
-  const onEdit = () => {
-    navigation.navigate(homeRoutes.addProduct, { product });
+  const { deleteProduct, getProducts } = useProductDetail({ product });
+
+  const navigateToHome = () => {
+    navigation.navigate(homeRoutes.productList, {});
   };
 
-  const onDelete = () => {
-    navigation.navigate(homeRoutes.addProduct, {});
+  const navigateToEditProduct = () => {
+    navigation.navigate(homeRoutes.editProduct, { product });
+  };
+
+  const onEdit = () => {
+    navigateToEditProduct();
+  };
+
+  const onDelete = async () => {
+    try {
+      await deleteProduct();
+      await getProducts();
+      navigateToHome();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

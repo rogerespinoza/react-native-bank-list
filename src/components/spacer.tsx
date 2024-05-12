@@ -3,7 +3,7 @@ import { DimensionValue, View } from 'react-native';
 
 type Direction = 'horizontal' | 'vertical';
 
-export default function Spacer({
+export function Spacer({
   orientation = 'vertical',
   size = undefined,
 }: {

@@ -3,11 +3,10 @@ import { FlatList, View } from 'react-native';
 
 import { FinancialProduct } from '../../domain';
 import { DataHandler } from '../../infraestructure';
-import Spacer from '../../components/spacer';
 import { styles } from './styles';
 import { homeRoutes } from '../../navigation/routes';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ListItem } from '../../components';
+import { Button, ListItem, Spacer } from '../../components';
 import { useProducts } from '../../contexts';
 
 export function ProductListScreen({
@@ -19,6 +18,10 @@ export function ProductListScreen({
 
   const onNavigateToDetail = (product: FinancialProduct) => {
     navigation.navigate(homeRoutes.productDetail, { product });
+  };
+
+  const onNavigateToAddProduct = () => {
+    navigation.navigate(homeRoutes.addProduct, {});
   };
 
   return (
@@ -37,6 +40,9 @@ export function ProductListScreen({
         )}
         keyExtractor={item => item.id}
       />
+      <Spacer size={30} />
+      <Button label="Agregar" onPress={onNavigateToAddProduct} />
+      <Spacer size={50} />
     </View>
   );
 }

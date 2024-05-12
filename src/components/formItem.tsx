@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput } from 'react-native';
-
-import Spacer from '../components/spacer';
+import { Spacer } from './spacer';
 
 export const FormItem = ({
   label,

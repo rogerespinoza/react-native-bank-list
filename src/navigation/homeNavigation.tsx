@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import {
   AddProductScreen,
+  EditProductScreen,
   ProductDetailScreen,
   ProductListScreen,
 } from '../views';
@@ -28,6 +29,10 @@ export function HomeNavigation() {
         <Stack.Screen
           name={homeRoutes.addProduct}
           component={AddProductScreen}
+        />
+        <Stack.Screen
+          name={homeRoutes.editProduct}
+          component={EditProductScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

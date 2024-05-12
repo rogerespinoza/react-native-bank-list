@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Spacer from '../components/spacer';
+import { Spacer } from '../components';
 import { FinancialProduct } from '../domain';
 import { colors } from '../common';
 

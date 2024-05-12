@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FinancialProduct } from '../domain';
 import { FormItem } from '../components';
@@ -56,4 +56,33 @@ export const ProductForm = ({
       />
     </>
   );
+};
+
+export function useProductForm({
+  initialProduct,
+}: {
+  initialProduct: FinancialProduct;
+}) {
+  const [product, setProduct] = useState<FinancialProduct>(
+    initialProduct ?? productEmpy,
+  );
+
+  const cleanForm = () => {
+    setProduct(productEmpy);
+  };
+
+  return {
+    product,
+    setProduct,
+    cleanForm,
+  };
+}
+
+const productEmpy: FinancialProduct = {
+  id: '',
+  name: '',
+  description: '',
+  logo: '',
+  date_release: new Date(),
+  date_revision: new Date(),
 };

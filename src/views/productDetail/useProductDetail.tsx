@@ -2,15 +2,11 @@ import { FinancialProduct } from '../../domain';
 import { DataHandler } from '../../infraestructure';
 import { useProducts } from '../../contexts';
 
-export function useAddProduct() {
+export function useProductDetail({ product }: { product: FinancialProduct }) {
   const { addProducts } = useProducts();
 
-  const createProduct = async (_item: FinancialProduct) => {
-    await DataHandler.createProduct(_item);
-    // const response = await DataHandler.createProduct(product);
-    // if (response === "Can't create because product is duplicate") {
-    //   throw response;
-    // }
+  const deleteProduct = async () => {
+    await DataHandler.deleteProduct(product ?? productEmpy);
   };
 
   const getProducts = async () => {
@@ -19,7 +15,16 @@ export function useAddProduct() {
   };
 
   return {
+    deleteProduct,
     getProducts,
-    createProduct,
   };
 }
+
+const productEmpy: FinancialProduct = {
+  id: '',
+  name: '',
+  description: '',
+  logo: '',
+  date_release: new Date(),
+  date_revision: new Date(),
+};
