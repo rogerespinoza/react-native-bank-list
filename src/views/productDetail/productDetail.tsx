@@ -53,7 +53,7 @@ export function ProductDetailScreen({
       <Spacer size={10} />
       <Button label="Editar" onPress={onEdit} />
       <Spacer size={10} />
-      <Button label="Eliminar" onPress={onDelete} />
+      <Button color="red" label="Eliminar" onPress={onDelete} />
     </View>
   );
 }

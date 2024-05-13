@@ -130,8 +130,8 @@ export const ProductForm = ({
         value={product.date_revision.toISOString().substring(0, 10)}
         disable={true}
       />
-      <Spacer size={10} />
-      <Button label="Enviar" onPress={onSubmitForm} />
+      <Spacer size={60} />
+      <Button color="yellow" label="Enviar" onPress={onSubmitForm} />
       <Spacer size={10} />
       <Button label="Reiniciar" onPress={onReset} />
     </>
