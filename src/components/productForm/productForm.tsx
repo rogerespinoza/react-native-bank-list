@@ -1,28 +1,59 @@
 import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { FinancialProduct } from '../domain';
-import { DateIOSPicker, openAndroidPicker, FormItem } from '../components';
-import { TIMESTAMP_ONE_YEAR, productEmpy } from '../common';
+import { FinancialProduct } from '../../domain';
+import {
+  DateIOSPicker,
+  openAndroidPicker,
+  FormItem,
+  Button,
+  Spacer,
+} from '../../components';
+import { TIMESTAMP_ONE_YEAR } from '../../common';
+import {
+  validateDescription,
+  validateId,
+  validateLogo,
+  validateName,
+} from './errors';
+import { ErrorType } from './model';
 
 export const ProductForm = ({
   product,
   onChange,
   typeForm,
+  onSubmit,
 }: {
   product: FinancialProduct;
   onChange: (product: FinancialProduct) => void;
-  onSubmit?: () => void;
+  onSubmit?: () => Promise<void>;
   onReset?: () => void;
   typeForm: 'update' | 'create';
 }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [error, setError] = useState<ErrorType>({
+    id: { state: false, label: '' },
+    name: { state: false, label: '' },
+    description: { state: false, label: '' },
+    logo: { state: false, label: '' },
+  });
+
   const onChangeProduct = (key: string, value: string) => {
     onChange({ ...product, [key]: value });
   };
 
   const closeDatePicker = () => {
     setShowDatePicker(false);
+  };
+
+  const onChangeDate = (_: any, _date?: Date) => {
+    const newDate = _date ?? new Date();
+    onChange({
+      ...product,
+      date_release: newDate,
+      date_revision: new Date(newDate.getTime() + TIMESTAMP_ONE_YEAR),
+    });
+    closeDatePicker();
   };
 
   const openDatePicker = () => {
@@ -36,14 +67,26 @@ export const ProductForm = ({
     });
   };
 
-  const onChangeDate = (_: any, _date?: Date) => {
-    const newDate = _date ?? new Date();
-    onChange({
-      ...product,
-      date_release: newDate,
-      date_revision: new Date(newDate.getTime() + TIMESTAMP_ONE_YEAR),
-    });
-    closeDatePicker();
+  const validateForm = async () => {
+    const errors: ErrorType = {
+      id: validateId(product.id),
+      name: validateName(product.name),
+      description: validateDescription(product.description),
+      logo: validateLogo(product.logo),
+    };
+
+    setError(errors);
+
+    const keysErrors = Object.keys(errors);
+    return !keysErrors.some(item => errors[item].state);
+  };
+
+  const onSubmitForm = async () => {
+    const isValidForm = await validateForm();
+    if (!isValidForm) {
+      return;
+    }
+    await onSubmit?.();
   };
 
   return (
@@ -56,28 +99,32 @@ export const ProductForm = ({
       />
       <FormItem
         label="ID"
-        errorText="ID no válido"
         value={product.id}
         onChangeText={value => onChangeProduct('id', value)}
         disable={typeForm === 'update'}
+        errorText={error.id.label}
+        hasError={error.id.state}
       />
       <FormItem
         label="Nombre"
-        errorText="Este campo es requerido!"
         value={product.name}
         onChangeText={value => onChangeProduct('name', value)}
+        errorText={error.name.label}
+        hasError={error.name.state}
       />
       <FormItem
         label="Descripción"
-        errorText="Este campo es requerido!"
         value={product.description}
         onChangeText={value => onChangeProduct('description', value)}
+        errorText={error.description.label}
+        hasError={error.description.state}
       />
       <FormItem
         label="Logo"
-        errorText="Este campo es requerido!"
         value={product.logo}
         onChangeText={value => onChangeProduct('logo', value)}
+        errorText={error.logo.label}
+        hasError={error.logo.state}
       />
       <TouchableOpacity onPress={openDatePicker} activeOpacity={1}>
         <FormItem
@@ -94,29 +141,13 @@ export const ProductForm = ({
         value={product.date_revision.toISOString().substring(0, 10)}
         disable={true}
       />
+      <Spacer size={10} />
+      <Button label="Enviar" onPress={onSubmitForm} />
+      <Spacer size={10} />
+      <Button label="Reiniciar" onPress={onSubmitForm} />
     </>
   );
 };
-
-export function useProductForm({
-  initialProduct,
-}: {
-  initialProduct: FinancialProduct;
-}) {
-  const [product, setProduct] = useState<FinancialProduct>(
-    initialProduct ?? productEmpy,
-  );
-
-  const cleanForm = () => {
-    setProduct(productEmpy);
-  };
-
-  return {
-    product,
-    setProduct,
-    cleanForm,
-  };
-}
 
 const styles = StyleSheet.create({
   buttonDate: {
