@@ -4,7 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ProductForm, useProductForm, Spacer } from '../../components';
+import { ProductForm, useProductForm, Spacer, Loading } from '../../components';
 import { useEditProduct } from './useEditProduct';
 import { homeRoutes } from '../../navigation';
 
@@ -17,7 +17,7 @@ export function EditProductScreen({
 }) {
   const initialProduct: FinancialProduct = route.params?.product;
 
-  const { getProducts, updateProduct } = useEditProduct();
+  const { onSubmitProduct, isLoading } = useEditProduct();
   const { cleanForm, product, setProduct } = useProductForm({
     initialProduct,
   });
@@ -26,10 +26,9 @@ export function EditProductScreen({
     navigation.navigate(homeRoutes.productList, {});
   };
 
-  const onUpdateProduct = async () => {
+  const onSubmit = async () => {
     try {
-      await updateProduct(product);
-      await getProducts();
+      await onSubmitProduct(product);
       navigateToHome();
     } catch (error) {
       console.log(error);
@@ -42,6 +41,7 @@ export function EditProductScreen({
 
   return (
     <View style={styles.container}>
+      <Loading isVisible={isLoading} />
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <Spacer size={20} />
         <Text>Editar Registro</Text>
@@ -51,7 +51,7 @@ export function EditProductScreen({
           onChange={setProduct}
           typeForm="update"
           onReset={onResetForm}
-          onSubmit={onUpdateProduct}
+          onSubmit={onSubmit}
         />
         <Spacer size={40} />
       </ScrollView>

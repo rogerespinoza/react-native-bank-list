@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
-import { ProductForm, Spacer, useProductForm } from '../../components';
+import { Loading, ProductForm, Spacer, useProductForm } from '../../components';
 import { useAddProduct } from './useAddProduct';
 import { homeRoutes } from '../../navigation';
 
@@ -20,16 +20,15 @@ export function AddProductScreen({
   const { cleanForm, product, setProduct } = useProductForm({
     initialProduct,
   });
-  const { createProduct, getProducts } = useAddProduct();
+  const { onSubmitProduct, isLoading } = useAddProduct();
 
   const navigateToHome = () => {
     navigation.navigate(homeRoutes.productList, {});
   };
 
-  const onCreateProduct = async () => {
+  const onSubmit = async () => {
     try {
-      await createProduct(product);
-      await getProducts();
+      await onSubmitProduct(product);
       navigateToHome();
     } catch (error) {
       console.log(error);
@@ -42,6 +41,7 @@ export function AddProductScreen({
 
   return (
     <View style={styles.container}>
+      <Loading isVisible={isLoading} />
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <Spacer size={20} />
         <Text>Formulario de Registro</Text>
@@ -51,7 +51,7 @@ export function AddProductScreen({
           onChange={setProduct}
           typeForm="create"
           onReset={onResetForm}
-          onSubmit={onCreateProduct}
+          onSubmit={onSubmit}
         />
         <Spacer size={40} />
       </ScrollView>

@@ -4,7 +4,6 @@ import { ErrorType } from './model';
 
 export const validateId = async (_financialProduct: FinancialProduct) => {
   const alreadyExistID = await DataHandler.verifyProductID(_financialProduct);
-  console.log(alreadyExistID);
   if (alreadyExistID) {
     return { state: true, label: 'El id ya esta registrado!' };
   }
@@ -62,10 +61,11 @@ export const validateLogo = (_financialProduct: FinancialProduct) => {
 
 export const getValidationResponse = async (
   _product: FinancialProduct,
+  _ignoreID: boolean = false,
 ): Promise<ErrorType> => {
   const idError = await validateId(_product);
   return {
-    id: idError,
+    id: !_ignoreID ? idError : { state: false, label: '' },
     name: validateName(_product),
     description: validateDescription(_product),
     logo: validateLogo(_product),

@@ -1,8 +1,10 @@
 import { FinancialProduct } from '../../domain';
 import { DataHandler } from '../../infraestructure';
 import { useProducts } from '../../contexts';
+import { useState } from 'react';
 
 export function useEditProduct() {
+  const [isLoading, setIsLoading] = useState(false);
   const { addProducts } = useProducts();
 
   const updateProduct = async (_item: FinancialProduct) => {
@@ -14,8 +16,21 @@ export function useEditProduct() {
     addProducts(productsData);
   };
 
+  const onSubmitProduct = async (_product: FinancialProduct) => {
+    try {
+      setIsLoading(true);
+      await updateProduct(_product);
+      await getProducts();
+    } catch (error) {
+      console.log(error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
-    getProducts,
-    updateProduct,
+    onSubmitProduct,
+    isLoading,
   };
 }

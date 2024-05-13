@@ -60,7 +60,8 @@ export const ProductForm = ({
 
   const validateForm = async () => {
     try {
-      const errors = await getValidationResponse(product);
+      const ignoreId = typeForm === 'update';
+      const errors = await getValidationResponse(product, ignoreId);
       setError(errors);
       return !Object.keys(errors).some(item => errors[item].state);
     } catch (err) {
