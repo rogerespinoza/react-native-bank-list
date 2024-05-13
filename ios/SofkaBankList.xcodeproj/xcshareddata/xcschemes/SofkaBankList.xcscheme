@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "SoftkaBankList.app"
-               BlueprintName = "SoftkaBankList"
-               ReferencedContainer = "container:SoftkaBankList.xcodeproj">
+               BuildableName = "SofkaBankList.app"
+               BlueprintName = "SofkaBankList"
+               ReferencedContainer = "container:SofkaBankList.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "SoftkaBankListTests.xctest"
-               BlueprintName = "SoftkaBankListTests"
-               ReferencedContainer = "container:SoftkaBankList.xcodeproj">
+               BuildableName = "SofkaBankListTests.xctest"
+               BlueprintName = "SofkaBankListTests"
+               ReferencedContainer = "container:SofkaBankList.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SoftkaBankList.app"
-            BlueprintName = "SoftkaBankList"
-            ReferencedContainer = "container:SoftkaBankList.xcodeproj">
+            BuildableName = "SofkaBankList.app"
+            BlueprintName = "SofkaBankList"
+            ReferencedContainer = "container:SofkaBankList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SoftkaBankList.app"
-            BlueprintName = "SoftkaBankList"
-            ReferencedContainer = "container:SoftkaBankList.xcodeproj">
+            BuildableName = "SofkaBankList.app"
+            BlueprintName = "SofkaBankList"
+            ReferencedContainer = "container:SofkaBankList.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

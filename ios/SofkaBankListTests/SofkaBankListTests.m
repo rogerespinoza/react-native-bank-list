@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface SoftkaBankListTests : XCTestCase
+@interface SofkaBankListTests : XCTestCase
 
 @end
 
-@implementation SoftkaBankListTests
+@implementation SofkaBankListTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {
