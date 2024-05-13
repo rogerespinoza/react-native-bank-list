@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
+import { colors } from '../common';
 
 export const InputField = ({
   hasError = false,
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
   container: {
     height: 45,
     borderWidth: 1,
+    borderColor: colors.gray1,
     paddingHorizontal: 5,
     borderRadius: 4,
   },

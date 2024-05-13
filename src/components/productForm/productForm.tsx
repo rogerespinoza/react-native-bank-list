@@ -19,6 +19,7 @@ export const ProductForm = ({
   onChange,
   typeForm,
   onSubmit,
+  onReset,
 }: {
   product: FinancialProduct;
   onChange: (product: FinancialProduct) => void;
@@ -132,7 +133,7 @@ export const ProductForm = ({
       <Spacer size={10} />
       <Button label="Enviar" onPress={onSubmitForm} />
       <Spacer size={10} />
-      <Button label="Reiniciar" onPress={onSubmitForm} />
+      <Button label="Reiniciar" onPress={onReset} />
     </>
   );
 };

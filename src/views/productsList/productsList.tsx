@@ -36,11 +36,15 @@ export function ProductListScreen({
     <View style={styles.container}>
       <FlatList
         ListHeaderComponent={
-          <InputField
-            value={search}
-            onChangeText={setSearch}
-            placeholder="Search..."
-          />
+          <>
+            <Spacer size={45} />
+            <InputField
+              value={search}
+              onChangeText={setSearch}
+              placeholder="Search..."
+            />
+            <Spacer size={35} />
+          </>
         }
         data={products}
         renderItem={({ item, index }) => (
@@ -57,7 +61,7 @@ export function ProductListScreen({
       />
       <Spacer size={30} />
       <Button label="Agregar" onPress={onNavigateToAddProduct} />
-      <Spacer size={50} />
+      <Spacer size={60} />
     </View>
   );
 }

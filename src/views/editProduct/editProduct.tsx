@@ -36,7 +36,7 @@ export function EditProductScreen({
   };
 
   const onResetForm = () => {
-    cleanForm();
+    cleanForm(true);
   };
 
   return (

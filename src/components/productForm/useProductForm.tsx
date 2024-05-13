@@ -12,7 +12,11 @@ export function useProductForm({
     initialProduct ?? productEmpy,
   );
 
-  const cleanForm = () => {
+  const cleanForm = (ignoreID = false) => {
+    if (ignoreID) {
+      setProduct({ ...productEmpy, id: product.id });
+      return;
+    }
     setProduct(productEmpy);
   };
 
