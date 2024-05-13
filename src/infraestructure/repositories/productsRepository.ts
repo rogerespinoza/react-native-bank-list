@@ -42,6 +42,16 @@ export class ProductsRepository implements ProductsRepositoryModel {
       throw error;
     }
   }
+  // -------- GET VERIFY ID
+  async getVerifyID(_item: FinancialProduct) {
+    try {
+      const productApi = adapterProductApi(_item);
+      return (await dataApi.getVerifyId(productApi)) as boolean;
+    } catch (error) {
+      console.log('|>>> error: ProductsRepository <<<|');
+      throw error;
+    }
+  }
 }
 
 // -------- ADAPTERS

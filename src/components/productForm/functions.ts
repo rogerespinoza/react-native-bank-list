@@ -1,66 +1,73 @@
 import { FinancialProduct } from '../../domain';
+import { DataHandler } from '../../infraestructure';
 import { ErrorType } from './model';
 
-export const validateId = (_id: string) => {
-  if (_id === '') {
+export const validateId = async (_financialProduct: FinancialProduct) => {
+  const alreadyExistID = await DataHandler.verifyProductID(_financialProduct);
+  console.log(alreadyExistID);
+  if (alreadyExistID) {
+    return { state: true, label: 'El id ya esta registrado!' };
+  }
+  if (_financialProduct.id === '') {
     return { state: true, label: 'El campo es requerido!' };
   }
-  if (_id.length < 3) {
+  if (_financialProduct.id.length < 3) {
     return { state: true, label: 'Minimo 3 caracteres!' };
   }
-  if (_id.length > 10) {
+  if (_financialProduct.id.length > 10) {
     return { state: true, label: 'Máximo 10 caracteres!' };
   }
-  if (_id.length > 10) {
+  if (_financialProduct.id.length > 10) {
     return { state: true, label: 'El ID ya existe!' };
   }
 
   return { state: false, label: '' };
 };
 
-export const validateName = (_name: string) => {
-  if (_name === '') {
+export const validateName = (_financialProduct: FinancialProduct) => {
+  if (_financialProduct.name === '') {
     return { state: true, label: 'El campo es requerido!' };
   }
-  if (_name.length < 5) {
+  if (_financialProduct.name.length < 5) {
     return { state: true, label: 'Minimo 5 caracteres!' };
   }
-  if (_name.length > 100) {
+  if (_financialProduct.name.length > 100) {
     return { state: true, label: 'Máximo 100 caracteres!' };
   }
 
   return { state: false, label: '' };
 };
 
-export const validateDescription = (_description: string) => {
-  if (_description === '') {
+export const validateDescription = (_financialProduct: FinancialProduct) => {
+  if (_financialProduct.description === '') {
     return { state: true, label: 'El campo es requerido!' };
   }
-  if (_description.length < 10) {
+  if (_financialProduct.description.length < 10) {
     return { state: true, label: 'Minimo 10 caracteres!' };
   }
-  if (_description.length > 100) {
+  if (_financialProduct.description.length > 100) {
     return { state: true, label: 'Máximo 200 caracteres!' };
   }
 
   return { state: false, label: '' };
 };
 
-export const validateLogo = (_logo: string) => {
-  if (_logo === '') {
+export const validateLogo = (_financialProduct: FinancialProduct) => {
+  if (_financialProduct.logo === '') {
     return { state: true, label: 'El campo es requerido!' };
   }
 
   return { state: false, label: '' };
 };
 
-export const getErrors = async (
+export const getValidationResponse = async (
   _product: FinancialProduct,
 ): Promise<ErrorType> => {
+  const idError = await validateId(_product);
   return {
-    id: validateId(_product.id),
-    name: validateName(_product.name),
-    description: validateDescription(_product.description),
-    logo: validateLogo(_product.logo),
+    id: idError,
+    name: validateName(_product),
+    description: validateDescription(_product),
+    logo: validateLogo(_product),
   };
 };

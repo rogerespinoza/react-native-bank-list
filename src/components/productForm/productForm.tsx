@@ -10,7 +10,7 @@ import {
   Spacer,
 } from '../../components';
 import { TIMESTAMP_ONE_YEAR } from '../../common';
-import { getErrors } from './functions';
+import { getValidationResponse } from './functions';
 import { ErrorType, initialError } from './model';
 import { styles } from './styles';
 
@@ -59,9 +59,13 @@ export const ProductForm = ({
   };
 
   const validateForm = async () => {
-    const errors = await getErrors(product);
-    setError(errors);
-    return !Object.keys(errors).some(item => errors[item].state);
+    try {
+      const errors = await getValidationResponse(product);
+      setError(errors);
+      return !Object.keys(errors).some(item => errors[item].state);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const onSubmitForm = async () => {

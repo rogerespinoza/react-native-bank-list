@@ -21,4 +21,9 @@ export class DataHandler {
     const repository = new ProductsRepository();
     await repository.deleteProduct(_item);
   }
+
+  static async verifyProductID(_item: FinancialProduct) {
+    const repository = new ProductsRepository();
+    return await repository.getVerifyID(_item);
+  }
 }

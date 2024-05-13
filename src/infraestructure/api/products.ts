@@ -23,6 +23,11 @@ export const deleteProduct = async (_item: ProductApi) => {
   return await client<string>({ url, method: 'DELETE' });
 };
 
+export const getVerifyId = async (_item: ProductApi) => {
+  const url = API_BASE + '/bp/products/verification?' + `id=${_item.id}`;
+  return await client<boolean>({ url, method: 'GET', body: {} });
+};
+
 export interface ProductApi {
   id: string;
   name: string;
