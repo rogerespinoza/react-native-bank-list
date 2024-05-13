@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 
 import { FinancialProduct } from '../../domain';
 import {
@@ -10,13 +10,9 @@ import {
   Spacer,
 } from '../../components';
 import { TIMESTAMP_ONE_YEAR } from '../../common';
-import {
-  validateDescription,
-  validateId,
-  validateLogo,
-  validateName,
-} from './errors';
-import { ErrorType } from './model';
+import { getErrors } from './functions';
+import { ErrorType, initialError } from './model';
+import { styles } from './styles';
 
 export const ProductForm = ({
   product,
@@ -26,17 +22,12 @@ export const ProductForm = ({
 }: {
   product: FinancialProduct;
   onChange: (product: FinancialProduct) => void;
-  onSubmit?: () => Promise<void>;
-  onReset?: () => void;
+  onSubmit: () => Promise<void>;
+  onReset: () => void;
   typeForm: 'update' | 'create';
 }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [error, setError] = useState<ErrorType>({
-    id: { state: false, label: '' },
-    name: { state: false, label: '' },
-    description: { state: false, label: '' },
-    logo: { state: false, label: '' },
-  });
+  const [error, setError] = useState<ErrorType>(initialError);
 
   const onChangeProduct = (key: string, value: string) => {
     onChange({ ...product, [key]: value });
@@ -68,17 +59,9 @@ export const ProductForm = ({
   };
 
   const validateForm = async () => {
-    const errors: ErrorType = {
-      id: validateId(product.id),
-      name: validateName(product.name),
-      description: validateDescription(product.description),
-      logo: validateLogo(product.logo),
-    };
-
+    const errors = await getErrors(product);
     setError(errors);
-
-    const keysErrors = Object.keys(errors);
-    return !keysErrors.some(item => errors[item].state);
+    return !Object.keys(errors).some(item => errors[item].state);
   };
 
   const onSubmitForm = async () => {
@@ -148,13 +131,3 @@ export const ProductForm = ({
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonDate: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    bottom: 0,
-  },
-});

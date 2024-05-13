@@ -4,7 +4,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Button, ProductForm, useProductForm, Spacer } from '../../components';
+import { ProductForm, useProductForm, Spacer } from '../../components';
 import { useEditProduct } from './useEditProduct';
 import { homeRoutes } from '../../navigation';
 
@@ -50,11 +50,9 @@ export function EditProductScreen({
           product={product}
           onChange={setProduct}
           typeForm="update"
+          onReset={onResetForm}
+          onSubmit={onUpdateProduct}
         />
-        <Spacer size={10} />
-        <Button label="Guardar" onPress={onUpdateProduct} />
-        <Spacer size={10} />
-        <Button label="Reiniciar" onPress={onResetForm} />
         <Spacer size={40} />
       </ScrollView>
     </View>

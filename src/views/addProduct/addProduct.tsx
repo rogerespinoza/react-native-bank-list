@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
-import { Button, ProductForm, Spacer, useProductForm } from '../../components';
+import { ProductForm, Spacer, useProductForm } from '../../components';
 import { useAddProduct } from './useAddProduct';
 import { homeRoutes } from '../../navigation';
 
@@ -50,11 +50,9 @@ export function AddProductScreen({
           product={product}
           onChange={setProduct}
           typeForm="create"
+          onReset={onResetForm}
+          onSubmit={onCreateProduct}
         />
-        <Spacer size={10} />
-        <Button label="Enviar" onPress={onCreateProduct} />
-        <Spacer size={10} />
-        <Button label="Reiniciar" onPress={onResetForm} />
         <Spacer size={40} />
       </ScrollView>
     </View>

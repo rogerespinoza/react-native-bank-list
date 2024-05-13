@@ -1,3 +1,6 @@
+import { FinancialProduct } from '../../domain';
+import { ErrorType } from './model';
+
 export const validateId = (_id: string) => {
   if (_id === '') {
     return { state: true, label: 'El campo es requerido!' };
@@ -49,4 +52,15 @@ export const validateLogo = (_logo: string) => {
   }
 
   return { state: false, label: '' };
+};
+
+export const getErrors = async (
+  _product: FinancialProduct,
+): Promise<ErrorType> => {
+  return {
+    id: validateId(_product.id),
+    name: validateName(_product.name),
+    description: validateDescription(_product.description),
+    logo: validateLogo(_product.logo),
+  };
 };

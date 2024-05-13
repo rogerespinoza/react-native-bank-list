@@ -18,3 +18,10 @@ export interface ErrorType {
 
   [key: string]: { state: boolean; label: string };
 }
+
+export const initialError: ErrorType = {
+  id: { state: false, label: '' },
+  name: { state: false, label: '' },
+  description: { state: false, label: '' },
+  logo: { state: false, label: '' },
+};
