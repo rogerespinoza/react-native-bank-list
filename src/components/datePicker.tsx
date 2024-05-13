@@ -61,7 +61,7 @@ export function openAndroidPicker({
   date?: Date;
 }) {
   DateTimePickerAndroid.open({
-    maximumDate: new Date(),
+    minimumDate: new Date(),
     value: date,
     onChange,
     mode: 'date',
@@ -69,7 +69,7 @@ export function openAndroidPicker({
   });
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#00000033',

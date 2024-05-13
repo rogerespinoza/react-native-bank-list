@@ -39,6 +39,7 @@ export function ProductListScreen({
           />
         )}
         keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
       />
       <Spacer size={30} />
       <Button label="Agregar" onPress={onNavigateToAddProduct} />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { FinancialProduct } from '../domain';
-import { DateIOSPicker, FormItem } from '../components';
+import { DateIOSPicker, openAndroidPicker, FormItem } from '../components';
 import { TIMESTAMP_ONE_YEAR, productEmpy } from '../common';
 
 export const ProductForm = ({
@@ -24,9 +24,18 @@ export const ProductForm = ({
   const closeDatePicker = () => {
     setShowDatePicker(false);
   };
+
   const openDatePicker = () => {
-    setShowDatePicker(true);
+    if (Platform.OS === 'ios') {
+      setShowDatePicker(true);
+      return;
+    }
+    openAndroidPicker({
+      onChange: onChangeDate,
+      date: product.date_release,
+    });
   };
+
   const onChangeDate = (_: any, _date?: Date) => {
     const newDate = _date ?? new Date();
     onChange({
@@ -70,7 +79,7 @@ export const ProductForm = ({
         value={product.logo}
         onChangeText={value => onChangeProduct('logo', value)}
       />
-      <View>
+      <TouchableOpacity onPress={openDatePicker} activeOpacity={1}>
         <FormItem
           label="Fecha de Liberación"
           errorText="Este campo es requerido!"
@@ -78,7 +87,7 @@ export const ProductForm = ({
           disable={true}
         />
         <TouchableOpacity onPress={openDatePicker} style={styles.buttonDate} />
-      </View>
+      </TouchableOpacity>
       <FormItem
         label="Fecha de Revisión"
         errorText="Este campo es requerido!"
