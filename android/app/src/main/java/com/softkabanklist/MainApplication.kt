@@ -1,4 +1,4 @@
-package com.softkabanklist
+package com.sofkabanklist
 
 import android.app.Application
 import com.facebook.react.PackageList

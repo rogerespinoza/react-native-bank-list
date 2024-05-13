@@ -1,4 +1,4 @@
-package com.softkabanklist
+package com.sofkabanklist
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
