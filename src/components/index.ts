@@ -5,3 +5,4 @@ export * from './listItem';
 export * from './productForm';
 export * from './datePicker';
 export * from './loading';
+export * from './skeletons';

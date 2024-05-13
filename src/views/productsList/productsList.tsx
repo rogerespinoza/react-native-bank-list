@@ -5,7 +5,7 @@ import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
 import { homeRoutes } from '../../navigation/routes';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Button, ListItem, Loading, Spacer } from '../../components';
+import { Button, ListItem, Skeletons, Spacer } from '../../components';
 import { useProductList } from './useProductsList';
 
 export function ProductListScreen({
@@ -23,10 +23,11 @@ export function ProductListScreen({
     navigation.navigate(homeRoutes.addProduct, {});
   };
 
+  if (isLoading) {
+    return <Skeletons />;
+  }
   return (
     <View style={styles.container}>
-      <Loading isVisible={isLoading} />
-      <Spacer size={20} />
       <FlatList
         data={products}
         renderItem={({ item, index }) => (
