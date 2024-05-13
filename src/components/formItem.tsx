@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { Spacer } from './spacer';
+import { InputField } from './inputField';
 
 export const FormItem = ({
   label,
@@ -20,11 +21,11 @@ export const FormItem = ({
   return (
     <>
       <Text>{label}</Text>
-      <TextInput
-        style={[styles.container, hasError && styles.containerError]}
+      <InputField
         value={value}
-        editable={!disable}
-        onChangeText={newText => onChangeText?.(newText)}
+        disable={disable}
+        hasError={hasError}
+        onChangeText={onChangeText}
       />
       {hasError && <Text style={styles.errorText}>{errorText}</Text>}
       <Spacer size={10} />

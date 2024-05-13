@@ -5,7 +5,13 @@ import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
 import { homeRoutes } from '../../navigation/routes';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Button, ListItem, Skeletons, Spacer } from '../../components';
+import {
+  Button,
+  InputField,
+  ListItem,
+  Skeletons,
+  Spacer,
+} from '../../components';
 import { useProductList } from './useProductsList';
 
 export function ProductListScreen({
@@ -13,7 +19,7 @@ export function ProductListScreen({
 }: {
   navigation: StackNavigationProp<any, any>;
 }) {
-  const { products, isLoading } = useProductList();
+  const { products, isLoading, search, setSearch } = useProductList();
 
   const onNavigateToDetail = (product: FinancialProduct) => {
     navigation.navigate(homeRoutes.productDetail, { product });
@@ -29,6 +35,13 @@ export function ProductListScreen({
   return (
     <View style={styles.container}>
       <FlatList
+        ListHeaderComponent={
+          <InputField
+            value={search}
+            onChangeText={setSearch}
+            placeholder="Search..."
+          />
+        }
         data={products}
         renderItem={({ item, index }) => (
           <ListItem

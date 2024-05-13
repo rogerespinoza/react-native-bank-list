@@ -1,36 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput } from 'react-native';
-
-import { Spacer } from '../components/';
+import { StyleSheet, TextInput } from 'react-native';
 
 export const InputField = ({
-  label,
-  hasError = true,
-  errorText = '',
+  hasError = false,
+  value = '',
+  onChangeText,
+  disable = false,
+  placeholder = '',
 }: {
-  label: string;
   hasError?: boolean;
-  errorText?: string;
+  disable?: boolean;
+  value: string;
+  placeholder?: string;
+  onChangeText?: (value: string) => void;
 }) => {
   return (
-    <>
-      <Text>{label}</Text>
-      <TextInput style={styles.container} />
-      {hasError && <Text style={styles.errorText}>{errorText}</Text>}
-      <Spacer size={10} />
-    </>
+    <TextInput
+      style={[styles.container, hasError && styles.containerError]}
+      value={value}
+      editable={!disable}
+      onChangeText={newText => onChangeText?.(newText)}
+      placeholder={placeholder}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     height: 45,
-    borderColor: 'red',
     borderWidth: 1,
     paddingHorizontal: 5,
     borderRadius: 4,
   },
-  errorText: {
-    color: 'red',
+  containerError: {
+    borderColor: 'red',
   },
 });
