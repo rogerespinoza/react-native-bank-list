@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { FinancialProduct } from '../../domain';
 import { styles } from './styles';
-import { Button, Label, Spacer } from '../../components';
+import { Button, Label, ModalConfirmation, Spacer } from '../../components';
 import { homeRoutes } from '../../navigation';
 import { useProductDetail } from './useProductDetail';
 
@@ -17,7 +17,8 @@ export function ProductDetailScreen({
 }) {
   const product: FinancialProduct = route.params?.product || {};
 
-  const { deleteProduct, getProducts } = useProductDetail({ product });
+  const { deleteProduct } = useProductDetail({ product });
+  const [isVisible, setIsVisible] = useState(false);
 
   const navigateToHome = () => {
     navigation.navigate(homeRoutes.productList, {});
@@ -34,15 +35,25 @@ export function ProductDetailScreen({
   const onDelete = async () => {
     try {
       await deleteProduct();
-      await getProducts();
+      showModalToggle();
       navigateToHome();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const showModalToggle = () => {
+    setIsVisible(prevState => !prevState);
+  };
+
   return (
     <View style={styles.container}>
+      <ModalConfirmation
+        isVisible={isVisible}
+        onCancel={showModalToggle}
+        onConfirm={onDelete}
+        nameProduct={product.name}
+      />
       <Spacer size={50} />
       <Text style={styles.title}>
         {`ID: ${product.id?.substring(0, 8) ?? ''}`}
@@ -79,7 +90,7 @@ export function ProductDetailScreen({
       <Spacer />
       <Button label="Editar" onPress={onEdit} />
       <Spacer size={10} />
-      <Button color="red" label="Eliminar" onPress={onDelete} />
+      <Button color="red" label="Eliminar" onPress={showModalToggle} />
       <Spacer size={60} />
     </View>
   );

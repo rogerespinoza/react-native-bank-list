@@ -8,3 +8,4 @@ export * from './loading';
 export * from './skeletons';
 export * from './inputField';
 export * from './label';
+export * from './modalConfirm';

@@ -8,6 +8,7 @@ export function useProductDetail({ product }: { product: FinancialProduct }) {
 
   const deleteProduct = async () => {
     await DataHandler.deleteProduct(product ?? productEmpy);
+    await getProducts();
   };
 
   const getProducts = async () => {
@@ -17,6 +18,5 @@ export function useProductDetail({ product }: { product: FinancialProduct }) {
 
   return {
     deleteProduct,
-    getProducts,
   };
 }
