@@ -11,7 +11,8 @@ import DateTimePicker, {
   DateTimePickerAndroid,
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
-import { Button } from './button';
+
+import { Button } from './button/button';
 
 export function DateIOSPicker({
   onChange,

@@ -60,7 +60,7 @@ export function ProductListScreen({
         showsVerticalScrollIndicator={false}
       />
       <Spacer size={30} />
-      <Button label="Agregar" onPress={onNavigateToAddProduct} />
+      <Button color="yellow" label="Agregar" onPress={onNavigateToAddProduct} />
       <Spacer size={60} />
     </View>
   );

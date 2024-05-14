@@ -1,5 +1,5 @@
 export * from './spacer';
-export * from './button';
+export * from './button/button';
 export * from './formItem';
 export * from './listItem';
 export * from './productForm';
@@ -7,3 +7,4 @@ export * from './datePicker';
 export * from './loading';
 export * from './skeletons';
 export * from './inputField';
+export * from './label';
