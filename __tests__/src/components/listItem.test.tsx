@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { ListItem } from '../../../src/components';
 import { FinancialProduct } from '../../../src/domain';
+import { ListItem } from '../../../src/components/molecules/listItem';
 
 describe('Button', () => {
   const handlePress = jest.fn();

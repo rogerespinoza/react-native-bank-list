@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
-import { Button } from '../../../src/components';
+import { Button } from '../../../src/components/atoms';
 
 describe('Button', () => {
   const handlePress = jest.fn();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { Label } from '../../../src/components';
+import { Label } from '../../../src/components/atoms';
 
 describe('Button', () => {
   it('renders label by label', () => {

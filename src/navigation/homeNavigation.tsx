@@ -7,7 +7,7 @@ import {
   EditProductScreen,
   ProductDetailScreen,
   ProductListScreen,
-} from '../views';
+} from '../components/pages';
 import { homeRoutes } from './routes';
 
 const Stack = createStackNavigator();
