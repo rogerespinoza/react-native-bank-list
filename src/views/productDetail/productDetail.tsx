@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { FinancialProduct } from '../../domain';
@@ -44,23 +44,27 @@ export function ProductDetailScreen({
   return (
     <View style={styles.container}>
       <Spacer size={50} />
-      <Text style={{ fontWeight: '500', fontSize: 23 }}>
+      <Text style={styles.title}>
         {`ID: ${product.id?.substring(0, 8) ?? ''}`}
       </Text>
       <Spacer size={5} />
-      <Text style={{ fontWeight: '500', fontSize: 15, color: '#00000088' }}>
-        Información extra
-      </Text>
+      <Text style={styles.subtitle}>Información extra</Text>
       <Spacer size={60} />
-      <View style={{ width: '95%', alignSelf: 'center' }}>
+      <View style={styles.boxData}>
         <Label label="Nombre" text={product.name} />
         <Spacer size={15} />
         <Label label="Descripción" text={product.description} />
         <Spacer size={15} />
-        <Label
-          label="Fecha de liberación"
-          text={product.date_release.toISOString().substring(0, 10)}
-        />
+        <View style={styles.boxLabel}>
+          <Text style={styles.label}>Logo</Text>
+          <Spacer orientation="horizontal" />
+          <Image
+            source={{
+              uri: 'https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg',
+            }}
+            style={styles.icon}
+          />
+        </View>
         <Spacer size={15} />
         <Label
           label="Fecha de liberación"
@@ -80,26 +84,3 @@ export function ProductDetailScreen({
     </View>
   );
 }
-
-// const Label = ({ label, text }: { label: string; text: string }) => {
-//   return (
-//     <View style={{ flexDirection: 'row' }}>
-//       <Text style={{ fontWeight: '500', fontSize: 14, color: '#00000088' }}>
-//         {label}
-//       </Text>
-//       <Spacer orientation="horizontal" />
-//       <Text
-//         numberOfLines={1}
-//         style={{
-//           fontWeight: '500',
-//           fontSize: 14,
-//           color: '#000000',
-//           width: 150,
-//           // alignSelf: 'flex-end',
-//           textAlign: 'right',
-//         }}>
-//         {text}
-//       </Text>
-//     </View>
-//   );
-// };
