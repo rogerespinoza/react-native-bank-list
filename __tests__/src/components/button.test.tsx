@@ -19,6 +19,13 @@ describe('Button', () => {
     expect(getByText('Press Me 2')).toBeTruthy();
   });
 
+  it('renders third button correctly', () => {
+    const { getByText } = render(
+      <Button label="Press Me 2" onPress={handlePress} />,
+    );
+    expect(getByText('Press Me 2')).toBeTruthy();
+  });
+
   it('triggers onPress when pressed', () => {
     const { getByText } = render(
       <Button label="Press Me" onPress={handlePress} />,
